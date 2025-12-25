@@ -16,40 +16,40 @@ import {
 import logo from './assets/sardhar dham logo.png';
 import Login from './login';
 const UTARAS = {
-  gadhpurdham_1: {
-    label: "GadhpurDham - 1",
+  building_1: {
+    label: "Building - 1",
     rooms: 170,
     capacity: 6,
   },
-  gadhpurdham_2: {
-    label: "GadhpurDham - 2",
+  building_2: {
+    label: "Building - 2",
     rooms: 300,
     capacity: 6,
   },
-  gadhpurdham_3: {
-    label: "GadhpurDham - 3",
+  building_3: {
+    label: "Building - 3",
     rooms: 150,
     capacity: 8,
   },
-  svyam_sevak_utara: {
-    label: "Svyam Sevak Utara",
+  building_4: {
+    label: "Building - 4",
     rooms: 60,
     capacity: 20,
   },
-  mandir_utara: {
-    label: "Mandir Utara",
+  building_5: {
+    label: "Building - 5",
     rooms: 50,
     capacity: 6,
   },
 };
 
 const UTARA_CONFIG = {
-  gadhpurdham_1: { rooms: 170, capacity: 6 },
-  gadhpurdham_2: { rooms: 300, capacity: 6 },
-  gadhpurdham_3: { rooms: 150, capacity: 8 },
-  svyam_sevak_utara: { rooms: 60, capacity: 20 },
-  mandir_utara: { rooms: 50, capacity: 6 },
-  sarangpur_utara: { rooms: 250, capacity: 6 },
+  building_1: { rooms: 170, capacity: 6 },
+  building_2: { rooms: 300, capacity: 6 },
+  building_3: { rooms: 150, capacity: 8 },
+  building_4: { rooms: 60, capacity: 20 },
+  building_5: { rooms: 50, capacity: 6 },
+  building_6: { rooms: 250, capacity: 6 },
 };
 
 
@@ -77,9 +77,9 @@ const calculateDuration = (checkInTime) => {
   const remainingMinutes = minutes % 60;
 
   const parts = [];
-  if (days > 0) parts.push(`${days} દિવસ`);
-  if (remainingHours > 0) parts.push(`${remainingHours} કલાક`);
-  if (remainingMinutes > 0 || parts.length === 0) parts.push(`${remainingMinutes} મિનિટ`);
+  if (days > 0) parts.push(`${days} days`);
+  if (remainingHours > 0) parts.push(`${remainingHours} hours`);
+  if (remainingMinutes > 0 || parts.length === 0) parts.push(`${remainingMinutes} minutes`);
 
   return parts.join(' ');
 };
@@ -142,14 +142,14 @@ const CustomModal = ({ isOpen, title, message, onConfirm, onCancel, confirmText,
                   onClick={onCancel}
                   className="px-5 py-2 mr-3 text-sm font-semibold text-gray-700 bg-white rounded-lg hover:bg-gray-100 transition shadow-md border-2 border-gray-300"
                 >
-                  {cancelText || 'રદ કરો'}
+                  {cancelText || 'Cancel'}
                 </button>
               )}
               <button
                 onClick={onConfirm}
                 className="px-5 py-2 text-sm font-semibold text-white bg-gradient-to-r from-red-600 to-red-700 rounded-lg hover:from-red-700 hover:to-red-800 transition shadow-lg"
               >
-                {confirmText || 'ખાતરી કરો'}
+                {confirmText || 'Confirm'}
               </button>
             </>
           ) : (
@@ -158,7 +158,7 @@ const CustomModal = ({ isOpen, title, message, onConfirm, onCancel, confirmText,
                 onClick={onCancel}
                 className="px-5 py-2 text-sm font-semibold text-white bg-gradient-to-r from-orange-600 to-red-600 rounded-lg hover:from-orange-700 hover:to-red-700 transition shadow-lg"
               >
-                {cancelText || 'બંધ કરો'}
+                {cancelText || 'Close'}
               </button>
             )
           )}
@@ -174,12 +174,12 @@ const CustomModal = ({ isOpen, title, message, onConfirm, onCancel, confirmText,
 
 export default function App() {
   const UTARA_CONFIG = {
-    gadhpurdham_1: { label: "GadhpurDham - 1", rooms: 170, capacity: 6 },
-    gadhpurdham_2: { label: "GadhpurDham - 2", rooms: 300, capacity: 6 },
-    gadhpurdham_3: { label: "GadhpurDham - 3", rooms: 150, capacity: 8 },
-    svyam_sevak:   { label: "Svyam Sevak Utara", rooms: 60, capacity: 20 },
-    mandir_utara:  { label: "મંદિર ઉતારા", rooms: 50, capacity: 6 },
-    sarangpur_utara: { label: "સારંગપુર ઉતારા", rooms: 250, capacity: 6 },
+    building_1: { label: "Building - 1", rooms: 170, capacity: 6 },
+    building_2: { label: "Building - 2", rooms: 300, capacity: 6 },
+    building_3: { label: "Building - 3", rooms: 150, capacity: 8 },
+    svyam_sevak:   { label: "Building - 4", rooms: 60, capacity: 20 },
+    building_5:  { label: "Building - 5", rooms: 50, capacity: 6 },
+    sarangpur_utara: { label: "Building - 6", rooms: 250, capacity: 6 },
   };
   const [selectedUtara, setSelectedUtara] = useState(null); // null means home page
   const [rooms, setRooms] = useState([]);
@@ -195,7 +195,7 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
   const utaraConfig = useMemo(() => 
-    selectedUtara ? (UTARA_CONFIG[selectedUtara] || UTARA_CONFIG.gadhpurdham_1) : null,
+    selectedUtara ? (UTARA_CONFIG[selectedUtara] || UTARA_CONFIG.building_1) : null,
     [selectedUtara]
   );
   const TOTAL_ROOMS = utaraConfig?.rooms || 0;
@@ -203,11 +203,11 @@ export default function App() {
   const UTARA_LABEL = utaraConfig?.label || '';
 
   const [allUtaraRooms, setAllUtaraRooms] = useState({
-    gadhpurdham_1: [],
-    gadhpurdham_2: [],
-    gadhpurdham_3: [],
+    building_1: [],
+    building_2: [],
+    building_3: [],
     svyam_sevak: [],
-    mandir_utara: [],
+    building_5: [],
     sarangpur_utara: [],
   });
   
@@ -403,7 +403,7 @@ return () => {
   }, []);
 
   // ====================================================================
-  // ૪. રૂમ મેનેજમેન્ટ લોજિક (Room Management Logic - Firestore Updates)
+  // ૪. Room મેનેજમેન્ટ લોજિક (Room Management Logic - Firestore Updates)
   // ====================================================================
   
   const updateRoomState = async (updatedRooms) => {
@@ -446,7 +446,7 @@ return () => {
       setModalState({
         isOpen: true,
         type: 'error',
-        data: `ક્ષમતાની ભૂલ: રૂમ ${roomId} માં માત્ર ${ROOM_CAPACITY - currentMembers} વ્યક્તિની જગ્યા બાકી છે.`,
+        data: `Capacity Error: Room ${roomId} has only ${ROOM_CAPACITY - currentMembers} space remaining.`,
       });
       return;
     }
@@ -526,9 +526,9 @@ updateRoomState(updatedRooms);
           setModalState({
             isOpen: true,
             type: 'error',
-            data: `ક્ષમતાની ભૂલ: રૂમ ${roomId} માં કુલ વ્યક્તિઓ રૂમની મહત્તમ ક્ષમતા (૫) કરતાં વધી જાય છે.`,
+            data: `Capacity Error: Total people in Room ${roomId} exceeds the room's maximum capacity (${ROOM_CAPACITY}).`,
           });
-          return r; // ભૂલ હોય તો રૂમ ડેટા બદલશો નહીં
+          return r; // ભૂલ હોય તો Room ડેટા બદલશો નહીં
         }
         return { ...r, families: updatedFamilies };
       }
@@ -554,7 +554,7 @@ updateRoomState(updatedRooms);
       type: 'confirmation',
       data: {
         title: 'ચેક-આઉટ ખાતરી',
-        message: `શું તમે ખરેખર ${familyToCheckout.name} (રૂમ ${roomId}) ને ચેક-આઉટ કરવા માંગો છો?`,
+        message: `શું તમે ખરેખર ${familyToCheckout.name} (Room ${roomId}) ને ચેક-આઉટ કરવા માંગો છો?`,
         onConfirm: () => confirmCheckOut(roomId, familyId, familyToCheckout),
       },
     });
@@ -571,7 +571,7 @@ const handleClearRoom = (roomId) => {
     type: 'confirmation',
     data: {
       title: 'બધા મહેમાનોને દૂર કરો',
-      message: `શું તમે ખરેખર રૂમ ${roomId} માંથી બધા ${room.families.length} મહેમાનોને દૂર કરવા માંગો છો? આ ક્રિયા રદ કરી શકાશે નહીં.`,
+      message: `શું તમે ખરેખર Room ${roomId} માંથી બધા ${room.families.length} મહેમાનોને દૂર કરવા માંગો છો? આ ક્રિયા રદ કરી શકાશે નહીં.`,
       onConfirm: () => confirmClearRoom(roomId, room.families),
     },
   });
@@ -635,7 +635,7 @@ const confirmCheckOut = async (roomId, familyId, familyToCheckout) => {
     console.error("Error adding history log:", e);
   }
 
-  // ૨. રૂમમાંથી ફેમિલી દૂર કરો (Firestore)
+  // ૨. Roomમાંથી ફેમિલી દૂર કરો (Firestore)
   const updatedRooms = rooms.map(r =>
     r.id === roomId
       ? { ...r, families: r.families.filter(f => f.id !== familyId) }
@@ -651,14 +651,14 @@ const confirmCheckOut = async (roomId, familyId, familyToCheckout) => {
   // ૫. કમ્પોનન્ટ્સ (Sub-Components)
   // ====================================================================
 
-  // રૂમ કાર્ડ
+  // Room કાર્ડ
   const RoomCard = ({ room, isHighlighted, isFaded }) => {
     const occupiedCount = room.families.reduce((sum, f) => sum + f.members, 0);
     const remainingCapacity = ROOM_CAPACITY - occupiedCount;
     const occupancyPercentage = (occupiedCount / ROOM_CAPACITY) * 100;
     
     let bgColor = 'bg-gray-100 hover:bg-gray-200'; // ખાલી
-    let statusText = `${remainingCapacity} ખાલી`;
+    let statusText = `${remainingCapacity} Empty`;
     let statusColor = 'bg-green-500 text-white';
   
     if (occupiedCount === ROOM_CAPACITY) {
@@ -689,7 +689,7 @@ const confirmCheckOut = async (roomId, familyId, familyToCheckout) => {
         style={{ transition: 'opacity 0.5s ease' }}
       >
         <div className="flex justify-between items-start">
-          <span className="text-2xl font-bold text-indigo-600">રૂમ {room.id}</span>
+          <span className="text-2xl font-bold text-indigo-600">Room {room.id}</span>
           <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${statusColor}`}>
             કુલ: {occupiedCount}
           </span>
@@ -703,7 +703,7 @@ const confirmCheckOut = async (roomId, familyId, familyToCheckout) => {
     );
   };
 
-  // રૂમ ડીટેલ્સ મોડલ
+  // Room ડીટેલ્સ મોડલ
   const RoomDetailsModal = ({ room, onClose, addFamily, updateFamily, handleCheckOut, handleClearRoom }) => {
     // Use a ref to store the initial room ID - prevents reset on room updates
     const initialRoomIdRef = React.useRef(room.id);
@@ -889,7 +889,7 @@ const confirmCheckOut = async (roomId, familyId, familyToCheckout) => {
 
               {/* વ્યક્તિઓની સંખ્યા એડિટ */}
   <div className="flex items-center">
-    <span className="text-gray-500 mr-2 text-sm">વ્યક્તિઓ:</span>
+    <span className="text-gray-500 mr-2 text-sm">People:</span>
     {isEditingMembers ? (
       <input
         type="number"
@@ -938,7 +938,7 @@ const confirmCheckOut = async (roomId, familyId, familyToCheckout) => {
                 onClick={toggleStatus}
                 className={`text-xs font-medium px-3 py-1 rounded-full shadow-md transition ${familyStatusColors[family.status]}`}
               >
-                {family.status === 'CheckedIn' ? 'હાજર' : 'બુકિંગ'}
+                {family.status === 'CheckedIn' ? 'હાજર' : 'Booking'}
               </button>
 
               {/* ચેક આઉટ */}
@@ -979,10 +979,10 @@ const confirmCheckOut = async (roomId, familyId, familyToCheckout) => {
     return (
       <CustomModal
         isOpen={true}
-        title={`રૂમ ${room.id} વ્યવસ્થાપન`}
-        message={`વર્તમાન ક્ષમતા: ${currentMembers} / ${ROOM_CAPACITY}. બાકી: ${remainingCapacity}`}
+        title={`Room ${room.id} Setup`}
+        message={`Current People: ${currentMembers} / ${ROOM_CAPACITY}. Left: ${remainingCapacity}`}
         onCancel={onClose}
-        cancelText="બંધ કરો"
+        cancelText="Close"
       >
         <div className="max-h-[70vh] overflow-y-auto pr-2">
           {/* હાલના મુસાફરો */}
@@ -1001,7 +1001,7 @@ const confirmCheckOut = async (roomId, familyId, familyToCheckout) => {
   )}
 </div>
 {room.families.length === 0 ? (
-  <p className="text-gray-500 italic mb-4">આ રૂમમાં કોઈ મુસાફરો નથી.</p>
+  <p className="text-gray-500 italic mb-4">There is nobody in this room right now.</p>
 ) : (
             <ul className="space-y-3 mb-6">
               {room.families.map(family => (
@@ -1014,12 +1014,12 @@ const confirmCheckOut = async (roomId, familyId, familyToCheckout) => {
           )}
           
           {/* નવું ફેમિલી ઉમેરવું */}
-          <h4 className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-700 to-red-700 mb-3 border-b-2 border-orange-300 pb-2 mt-4">નવું ફેમિલી ઉમેરો</h4>
+          <h4 className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-700 to-red-700 mb-3 border-b-2 border-orange-300 pb-2 mt-4">Add New Family</h4>
           <form onSubmit={handleAdd} className="bg-gradient-to-br from-orange-50 to-yellow-50 p-4 rounded-lg border-2 border-orange-300">
   <div className="flex flex-col sm:flex-row sm:space-x-4 mb-3">
   <input
   type="text"
-  placeholder="પ્રથમ નામ (First Name) *"
+  placeholder="First Name*"
   value={newFamily.firstName || ''}
   onChange={(e) => setNewFamily(prev => ({ ...prev, firstName: e.target.value }))}
   autoComplete="off"
@@ -1030,7 +1030,7 @@ const confirmCheckOut = async (roomId, familyId, familyToCheckout) => {
 />
 <input
   type="text"
-  placeholder="છેલ્લું નામ (Last Name) - વૈકલ્પિક"
+  placeholder="Last Name*"
   value={newFamily.lastName || ''}
   onChange={(e) => setNewFamily(prev => ({ ...prev, lastName: e.target.value }))}
   autoComplete="off"
@@ -1043,7 +1043,7 @@ const confirmCheckOut = async (roomId, familyId, familyToCheckout) => {
   <div className="flex flex-col sm:flex-row sm:space-x-4 mb-3">
   <input
   type="text"
-  placeholder="ગામ / શહેર (Village/City) - વૈકલ્પિક"
+  placeholder="Village/City"
   value={newFamily.village || ''}
   onChange={(e) => setNewFamily(prev => ({ ...prev, village: e.target.value }))}
   autoComplete="off"
@@ -1053,7 +1053,7 @@ const confirmCheckOut = async (roomId, familyId, familyToCheckout) => {
 />
 <input
   type="tel"
-  placeholder="મોબાઇલ (Phone Number) *"
+  placeholder="Phone Number*"
   value={newFamily.phone || ''}
   onChange={(e) => setNewFamily(prev => ({ ...prev, phone: e.target.value }))}
   autoComplete="off"
@@ -1067,7 +1067,7 @@ const confirmCheckOut = async (roomId, familyId, familyToCheckout) => {
   <div className="mb-3">
   <input
   type="text"
-  placeholder="સરનામું (Address) - વૈકલ્પિક"
+  placeholder="Address"
   value={newFamily.address || ''}
   onChange={(e) => setNewFamily(prev => ({ ...prev, address: e.target.value }))}
   autoComplete="off"
@@ -1088,7 +1088,7 @@ const confirmCheckOut = async (roomId, familyId, familyToCheckout) => {
         <option value={1} disabled>FULL</option>
       ) : (
         memberOptions.map(m => (
-          <option key={m} value={m}>{m} વ્યક્તિ</option>
+          <option key={m} value={m}>{m} Person</option>
         ))
       )}
     </select>
@@ -1097,8 +1097,8 @@ const confirmCheckOut = async (roomId, familyId, familyToCheckout) => {
       onChange={(e) => setNewFamily(f => ({ ...f, status: e.target.value }))}
       className="p-2 border-2 border-orange-300 rounded-lg w-full sm:w-1/3 mb-2 sm:mb-0 focus:ring-2 focus:ring-orange-400"
     >
-      <option value="CheckedIn">હાજર (Checked In)</option>
-      <option value="Reserved">બુકિંગ (Reserved)</option>
+      <option value="CheckedIn">Checked In (Checked In)</option>
+      <option value="Reserved">Booking (Reserved)</option>
     </select>
   </div>
   <button
@@ -1106,7 +1106,7 @@ const confirmCheckOut = async (roomId, familyId, familyToCheckout) => {
     className={`mt-3 w-full py-2 font-semibold text-white rounded-lg transition shadow-lg ${isFull ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700'}`}
     disabled={isFull}
   >
-    {isFull ? 'રૂમ સંપૂર્ણ ભરાયેલ છે' : 'ફેમિલી ઉમેરો'}
+    {isFull ? 'Room are totally full' : 'Add Family'}
   </button>
 </form>
         </div>
@@ -1193,7 +1193,7 @@ if (!selectedUtara) {
     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
     </svg>
-    <span>લૉગઆઉટ</span>
+    <span>Logout</span>
   </button>
 
   <div className="mb-6 relative">
@@ -1202,11 +1202,6 @@ if (!selectedUtara) {
               <div className="absolute inset-0 bg-orange-400 blur-2xl opacity-30 rounded-full"></div>
               <div className="inline-block relative">
   <div className="absolute inset-0 bg-orange-400 blur-2xl opacity-30 rounded-full"></div>
-  <img 
-    src={logo} 
-    alt="Sardhar Dham Logo" 
-    className="h-20 w-40 mx-auto relative object-contain"
-  />
 </div>
             </div>
           </div>
@@ -1214,16 +1209,16 @@ if (!selectedUtara) {
           {/* Title with Traditional Style */}
           <div className="relative inline-block">
             <h1 className="text-4xl sm:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-700 via-red-700 to-orange-800 mb-2 drop-shadow-lg">
-              || સરધારધામ ||
+              Living Accomadation
             </h1>
             <div className="h-1 w-32 mx-auto bg-gradient-to-r from-orange-600 to-red-600 rounded-full mb-4"></div>
           </div>
           
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-3">
-            બોટાદ મહોત્સવ ઉતારા વ્યવસ્થા
+            Developed by Akshar Patel
           </h2>
           <div className="inline-block px-4 py-1 bg-white rounded-full shadow-md border border-orange-200">
-  <p className="text-sm text-gray-600">યુઝર: <span className="font-semibold text-orange-700">{currentUser?.username || 'Guest'}</span></p>
+  <p className="text-sm text-gray-600">User: <span className="font-semibold text-orange-700">{currentUser?.username || 'Guest'}</span></p>
 </div>
         </header>
 
@@ -1233,7 +1228,7 @@ if (!selectedUtara) {
 <div className="max-w-2xl mx-auto mb-10 px-4">
   <input
     type="text"
-    placeholder="કોઈપણ ઉતારામાં યાત્રી શોધો... (Search guest across all utaras)"
+    placeholder="Search Guest Across All Buildings"
     value={searchQuery}
     onChange={(e) => setSearchQuery(e.target.value)}
     className="w-full p-4 border-2 border-orange-300 rounded-xl focus:ring-4 focus:ring-orange-200 focus:border-orange-500 transition shadow-lg text-lg"
@@ -1286,7 +1281,7 @@ if (!selectedUtara) {
                 >
                   <div className="font-semibold">{f.name}</div>
                   <div className="text-xs opacity-90">
-                    {f.utaraLabel} - રૂમ {f.roomNumber} | {f.members} વ્યક્તિ
+                    {f.utaraLabel} - Room {f.roomNumber} | {f.members} Person
                   </div>
                 </button>
               ))}
@@ -1314,7 +1309,7 @@ if (!selectedUtara) {
             {/* GadhpurDham - 1 */}
 <button
   onClick={() => {
-    setSelectedUtara('gadhpurdham_1');
+    setSelectedUtara('building_1');
     window.scrollTo(0, 0);
   }}
   className="group relative bg-gradient-to-br from-white to-orange-50 border-4 border-orange-300 hover:border-orange-500 rounded-3xl p-8 shadow-2xl hover:shadow-orange-300/50 transform hover:scale-105 transition-all duration-300 overflow-hidden"
@@ -1322,22 +1317,22 @@ if (!selectedUtara) {
   <div className="absolute top-0 right-0 w-32 h-32 bg-orange-200 rounded-full -mr-16 -mt-16 opacity-20 group-hover:opacity-40 transition"></div>
   <div className="relative text-center">
     <div className="inline-block px-4 py-1 bg-orange-600 text-white rounded-full text-xs font-bold mb-3 shadow-md">
-      GADHPUR DHAM
+      Building
     </div>
-    <h3 className="text-3xl font-extrabold text-orange-800 mb-4">ગઢપુર ધામ - ૧</h3>
+    <h3 className="text-3xl font-extrabold text-orange-800 mb-4">Building - 1</h3>
     <div className="flex justify-center items-center space-x-6 mb-4">
       <div className="text-center">
         <p className="text-5xl font-extrabold text-orange-700">170</p>
-        <p className="text-sm text-gray-600 font-semibold">રૂમ્સ</p>
+        <p className="text-sm text-gray-600 font-semibold">Rooms</p>
       </div>
       <div className="text-4xl text-orange-300">●</div>
       <div className="text-center">
         <p className="text-5xl font-extrabold text-green-600">
-          {allUtaraRooms.gadhpurdham_1?.reduce((sum, room) => 
+          {allUtaraRooms.building_1?.reduce((sum, room) => 
             sum + room.families.reduce((s, f) => 
               f.status === 'CheckedIn' ? s + f.members : s, 0), 0) || 0}
         </p>
-        <p className="text-sm text-gray-600 font-semibold">હાજર</p>
+        <p className="text-sm text-gray-600 font-semibold">Booked</p>
       </div>
     </div>
     <div className="text-orange-600 font-semibold group-hover:text-orange-800 transition">
@@ -1349,7 +1344,7 @@ if (!selectedUtara) {
             {/* GadhpurDham - 2 */}
             <button
               onClick={() => {
-                setSelectedUtara('gadhpurdham_2');
+                setSelectedUtara('building_2');
                 window.scrollTo(0, 0);
               }}
               className="group relative bg-gradient-to-br from-white to-red-50 border-4 border-red-300 hover:border-red-500 rounded-3xl p-8 shadow-2xl hover:shadow-red-300/50 transform hover:scale-105 transition-all duration-300 overflow-hidden"
@@ -1357,22 +1352,22 @@ if (!selectedUtara) {
               <div className="absolute top-0 right-0 w-32 h-32 bg-red-200 rounded-full -mr-16 -mt-16 opacity-20 group-hover:opacity-40 transition"></div>
               <div className="relative text-center">
                 <div className="inline-block px-4 py-1 bg-red-600 text-white rounded-full text-xs font-bold mb-3 shadow-md">
-                  GADHPUR DHAM
+                  Building
                 </div>
-                <h3 className="text-3xl font-extrabold text-red-800 mb-4">ગઢપુર ધામ - ૨</h3>
+                <h3 className="text-3xl font-extrabold text-red-800 mb-4">Building - 2</h3>
                 <div className="flex justify-center items-center space-x-6 mb-4">
                   <div className="text-center">
                     <p className="text-5xl font-extrabold text-red-700">300</p>
-                    <p className="text-sm text-gray-600 font-semibold">રૂમ્સ</p>
+                    <p className="text-sm text-gray-600 font-semibold">Rooms</p>
                   </div>
                   <div className="text-4xl text-red-300">●</div>
                   <div className="text-center">
   <p className="text-5xl font-extrabold text-green-600">
-    {allUtaraRooms.gadhpurdham_2?.reduce((sum, room) => 
+    {allUtaraRooms.building_2?.reduce((sum, room) => 
       sum + room.families.reduce((s, f) => 
         f.status === 'CheckedIn' ? s + f.members : s, 0), 0) || 0}
   </p>
-  <p className="text-sm text-gray-600 font-semibold">હાજર</p>
+  <p className="text-sm text-gray-600 font-semibold">Booked</p>
 </div>
                 </div>
                 <div className="text-red-600 font-semibold group-hover:text-red-800 transition">
@@ -1384,7 +1379,7 @@ if (!selectedUtara) {
             {/* GadhpurDham - 3 */}
             <button
               onClick={() => {
-                setSelectedUtara('gadhpurdham_3');
+                setSelectedUtara('building_3');
                 window.scrollTo(0, 0);
               }}
               className="group relative bg-gradient-to-br from-white to-yellow-50 border-4 border-yellow-400 hover:border-yellow-600 rounded-3xl p-8 shadow-2xl hover:shadow-yellow-300/50 transform hover:scale-105 transition-all duration-300 overflow-hidden"
@@ -1392,22 +1387,22 @@ if (!selectedUtara) {
               <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-200 rounded-full -mr-16 -mt-16 opacity-20 group-hover:opacity-40 transition"></div>
               <div className="relative text-center">
                 <div className="inline-block px-4 py-1 bg-yellow-600 text-white rounded-full text-xs font-bold mb-3 shadow-md">
-                  GADHPUR DHAM
+                  Building
                 </div>
-                <h3 className="text-3xl font-extrabold text-yellow-800 mb-4">ગઢપુર ધામ - ૩</h3>
+                <h3 className="text-3xl font-extrabold text-yellow-800 mb-4">Building - 3</h3>
                 <div className="flex justify-center items-center space-x-6 mb-4">
                   <div className="text-center">
                     <p className="text-5xl font-extrabold text-yellow-700">150</p>
-                    <p className="text-sm text-gray-600 font-semibold">રૂમ્સ</p>
+                    <p className="text-sm text-gray-600 font-semibold">Rooms</p>
                   </div>
                   <div className="text-4xl text-yellow-300">●</div>
                   <div className="text-center">
   <p className="text-5xl font-extrabold text-green-600">
-    {allUtaraRooms.gadhpurdham_3?.reduce((sum, room) => 
+    {allUtaraRooms.building_3?.reduce((sum, room) => 
       sum + room.families.reduce((s, f) => 
         f.status === 'CheckedIn' ? s + f.members : s, 0), 0) || 0}
   </p>
-  <p className="text-sm text-gray-600 font-semibold">હાજર</p>
+  <p className="text-sm text-gray-600 font-semibold">Booked</p>
 </div>
                 </div>
                 <div className="text-yellow-700 font-semibold group-hover:text-yellow-900 transition">
@@ -1427,13 +1422,13 @@ if (!selectedUtara) {
               <div className="absolute top-0 right-0 w-32 h-32 bg-amber-200 rounded-full -mr-16 -mt-16 opacity-20 group-hover:opacity-40 transition"></div>
               <div className="relative text-center">
                 <div className="inline-block px-4 py-1 bg-amber-700 text-white rounded-full text-xs font-bold mb-3 shadow-md">
-                  SEVAK UTARA
+                  Building
                 </div>
-                <h3 className="text-3xl font-extrabold text-amber-900 mb-4">સ્વયં સેવક ઉતારા</h3>
+                <h3 className="text-3xl font-extrabold text-amber-900 mb-4">Building - 4</h3>
                 <div className="flex justify-center items-center space-x-6 mb-4">
                   <div className="text-center">
                     <p className="text-5xl font-extrabold text-amber-700">60</p>
-                    <p className="text-sm text-gray-600 font-semibold">રૂમ્સ</p>
+                    <p className="text-sm text-gray-600 font-semibold">Rooms</p>
                   </div>
                   <div className="text-4xl text-amber-300">●</div>
                   <div className="text-center">
@@ -1442,7 +1437,7 @@ if (!selectedUtara) {
       sum + room.families.reduce((s, f) => 
         f.status === 'CheckedIn' ? s + f.members : s, 0), 0) || 0}
   </p>
-  <p className="text-sm text-gray-600 font-semibold">હાજર</p>
+  <p className="text-sm text-gray-600 font-semibold">Booked</p>
 </div>
                 </div>
                 <div className="text-amber-700 font-semibold group-hover:text-amber-900 transition">
@@ -1453,7 +1448,7 @@ if (!selectedUtara) {
             {/* Mandir Utara */}
 <button
   onClick={() => {
-    setSelectedUtara('mandir_utara');
+    setSelectedUtara('building_5');
     window.scrollTo(0, 0);
   }}
   className="group relative bg-gradient-to-br from-white to-red-50 border-4 border-red-300 hover:border-red-500 rounded-3xl p-8 shadow-2xl hover:shadow-red-300/50 transform hover:scale-105 transition-all duration-300 overflow-hidden"
@@ -1461,22 +1456,22 @@ if (!selectedUtara) {
   <div className="absolute top-0 right-0 w-32 h-32 bg-red-200 rounded-full -mr-16 -mt-16 opacity-20 group-hover:opacity-40 transition"></div>
   <div className="relative text-center">
     <div className="inline-block px-4 py-1 bg-red-600 text-white rounded-full text-xs font-bold mb-3 shadow-md">
-      MANDIR UTARA
+      Building
     </div>
-    <h3 className="text-3xl font-extrabold text-red-800 mb-4">મંદિર ઉતારા</h3>
+    <h3 className="text-3xl font-extrabold text-red-800 mb-4">Building - 5</h3>
     <div className="flex justify-center items-center space-x-6 mb-4">
       <div className="text-center">
         <p className="text-5xl font-extrabold text-red-700">50</p>
-        <p className="text-sm text-gray-600 font-semibold">રૂમ્સ</p>
+        <p className="text-sm text-gray-600 font-semibold">Rooms</p>
       </div>
       <div className="text-4xl text-red-300">●</div>
       <div className="text-center">
         <p className="text-5xl font-extrabold text-green-600">
-          {allUtaraRooms.mandir_utara?.reduce((sum, room) => 
+          {allUtaraRooms.building_5?.reduce((sum, room) => 
             sum + room.families.reduce((s, f) => 
               f.status === 'CheckedIn' ? s + f.members : s, 0), 0) || 0}
         </p>
-        <p className="text-sm text-gray-600 font-semibold">હાજર</p>
+        <p className="text-sm text-gray-600 font-semibold">Booked</p>
       </div>
     </div>
     <div className="text-red-600 font-semibold group-hover:text-red-800 transition">
@@ -1495,13 +1490,13 @@ if (!selectedUtara) {
   <div className="absolute top-0 right-0 w-32 h-32 bg-orange-200 rounded-full -mr-16 -mt-16 opacity-20 group-hover:opacity-40 transition"></div>
   <div className="relative text-center">
     <div className="inline-block px-4 py-1 bg-orange-600 text-white rounded-full text-xs font-bold mb-3 shadow-md">
-      SARANGPUR UTARA
+      Building
     </div>
-    <h3 className="text-3xl font-extrabold text-orange-800 mb-4">સારંગપુર ઉતારા</h3>
+    <h3 className="text-3xl font-extrabold text-orange-800 mb-4">Building - 6</h3>
     <div className="flex justify-center items-center space-x-6 mb-4">
       <div className="text-center">
         <p className="text-5xl font-extrabold text-orange-700">250</p>
-        <p className="text-sm text-gray-600 font-semibold">રૂમ્સ</p>
+        <p className="text-sm text-gray-600 font-semibold">Rooms</p>
       </div>
       <div className="text-4xl text-orange-300">●</div>
       <div className="text-center">
@@ -1510,7 +1505,7 @@ if (!selectedUtara) {
             sum + room.families.reduce((s, f) => 
               f.status === 'CheckedIn' ? s + f.members : s, 0), 0) || 0}
         </p>
-        <p className="text-sm text-gray-600 font-semibold">હાજર</p>
+        <p className="text-sm text-gray-600 font-semibold">Booked</p>
       </div>
     </div>
     <div className="text-orange-600 font-semibold group-hover:text-orange-800 transition">
@@ -1533,7 +1528,7 @@ if (!selectedUtara) {
 <footer className="text-center mt-16 pb-8">
   <div className="inline-block px-6 py-3 bg-white rounded-full shadow-lg border-2 border-orange-200">
     <p className="text-sm text-gray-600">
-      🙏 <span className="font-semibold text-orange-700">જય સ્વામિનારાયણ</span> 🙏
+      <span className="font-semibold text-orange-700">Hello there!</span> 
     </p>
   </div>
 </footer>
@@ -1567,7 +1562,7 @@ return (
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
-            <span>હોમ</span>
+            <span>Home</span>
           </button>
         )}
 
@@ -1579,22 +1574,22 @@ return (
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
           </svg>
-          <span>લૉગઆઉટ</span>
+          <span>Logout</span>
         </button>
 
         <h1 className="text-3xl font-extrabold text-center mb-2">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-700 via-red-700 to-orange-800">
-            મંદિર ઉતારા વ્યવસ્થાપન સિસ્ટમ
+            Living Accomadation System
           </span>
         </h1>
         <p className="text-center text-xs text-gray-500 mt-2">
-    વર્તમાન યુઝર: {currentUser?.username || 'Guest'}
+    Current User: {currentUser?.username || 'Guest'}
 </p>
         
         <div className="max-w-xl mx-auto mt-4">
           <input
             type="text"
-            placeholder="ફેમિલી લીડરના નામ દ્વારા શોધો..."
+            placeholder="Write the family leaders name"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full p-3 border-2 border-orange-300 rounded-xl focus:ring-4 focus:ring-orange-200 focus:border-orange-500 transition shadow-md"
@@ -1611,7 +1606,7 @@ return (
                   onClick={() => openRoomDetailsModal(f.roomNumber)}
                   className="text-xs px-2 py-1 bg-orange-600 text-white rounded-full hover:bg-orange-700 transition shadow-sm"
                 >
-                  {f.name} (રૂમ {f.roomNumber})
+                  {f.name} (room {f.roomNumber})
                 </button>
               ))}
             </div>
@@ -1620,22 +1615,22 @@ return (
         {searchQuery && searchResults.families.length === 0 && (
           <div className="max-w-xl mx-auto mt-3 p-3 bg-red-50 rounded-lg border-2 border-red-300 shadow-md">
             <p className="text-sm text-red-700 text-center">
-              કોઈ પરિણામ મળ્યું નથી.
+              No results found.
             </p>
           </div>
         )}
       </header>
 
       <main className="container mx-auto">
-        {/* રૂમ ગ્રીડ */}
+        {/* Room ગ્રીડ */}
         <section className="mb-10 p-6 bg-white rounded-2xl shadow-2xl border-2 border-orange-200">
   <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-700 to-red-700 mb-4 flex items-center flex-wrap gap-3">
-    <span>રૂમ ગ્રીડ - {UTARA_LABEL} (કુલ: {TOTAL_ROOMS}, ક્ષમતા: {ROOM_CAPACITY})</span>
+    <span>Room Grid - {UTARA_LABEL} (Full: {TOTAL_ROOMS}, Capacity: {ROOM_CAPACITY})</span>
     <span className="px-5 py-2 bg-green-600 text-white rounded-full text-lg font-semibold shadow-lg">
-      હાજર: {rooms.reduce((sum, room) => sum + room.families.reduce((s, f) => f.status === 'CheckedIn' ? s + f.members : s, 0), 0)} લોકો
+      Present: {rooms.reduce((sum, room) => sum + room.families.reduce((s, f) => f.status === 'CheckedIn' ? s + f.members : s, 0), 0)} People
     </span>
     <span className="px-5 py-2 bg-red-600 text-white rounded-full text-lg font-semibold shadow-lg">
-      સંપૂર્ણ રૂમ: {rooms.filter(room => room.families.reduce((sum, f) => sum + f.members, 0) === ROOM_CAPACITY).length}
+      Full Rooms: {rooms.filter(room => room.families.reduce((sum, f) => sum + f.members, 0) === ROOM_CAPACITY).length}
     </span>
   </h2>
 
@@ -1660,11 +1655,11 @@ return (
           {/* હાજર યાત્રીઓનું લિસ્ટ */}
           <section className="p-6 bg-white rounded-2xl shadow-2xl border-2 border-green-200">
   <h2 className="text-2xl font-bold text-green-700 mb-4 border-b-2 border-green-300 pb-2">
-              હાજર યાત્રીઓનું લિસ્ટ ({checkedInList.length})
+              Checked In Guests ({checkedInList.length})
             </h2>
             <div className="space-y-3 max-h-96 overflow-y-auto pr-2">
               {checkedInList.length === 0 ? (
-                <p className="text-gray-500 italic">કોઈ યાત્રીઓ હાજર નથી.</p>
+                <p className="text-gray-500 italic">No guests are checked in.</p>
               ) : (
                 checkedInList.map(f => (
                   <div
@@ -1675,14 +1670,14 @@ return (
                     <div>
                       <p className="font-semibold text-gray-800">{f.name}</p>
                       <p className="text-xs text-gray-600">
-                        રૂમ {f.roomNumber} | {f.members} વ્યક્તિ
+                        Room {f.roomNumber} | {f.members} Person
                       </p>
                     </div>
                     <div className="text-right">
                       <p className="text-sm font-bold text-green-700">
                         {calculateDuration(f.checkInTime, durationTick)}
                       </p>
-                      <p className="text-xs text-gray-500">કુલ સમય</p>
+                      <p className="text-xs text-gray-500">Duration</p>
                     </div>
                   </div>
                 ))
@@ -1693,11 +1688,11 @@ return (
           {/* બુકિંગ લિસ્ટ */}
           <section className="p-6 bg-white rounded-2xl shadow-2xl border-2 border-orange-200">
   <h2 className="text-2xl font-bold text-orange-700 mb-4 border-b-2 border-orange-300 pb-2">
-    બુકિંગ લિસ્ટ ({reservedList.length})
+    Booking List ({reservedList.length})
   </h2>
             <div className="space-y-3 max-h-96 overflow-y-auto pr-2">
               {reservedList.length === 0 ? (
-                <p className="text-gray-500 italic">કોઈ બુકિંગ પેન્ડિંગ નથી.</p>
+                <p className="text-gray-500 italic">No Pending Bookings</p>
               ) : (
                 reservedList.map(f => (
                   <div
@@ -1707,10 +1702,10 @@ return (
                     <div>
                       <p className="font-semibold text-gray-800">{f.name}</p>
                       <p className="text-xs text-gray-600">
-                        રૂમ {f.roomNumber} | {f.members} વ્યક્તિ
+                        Room {f.roomNumber} | {f.members} Person
                       </p>
                     </div>
-                    <span className="text-xs font-medium px-2 py-0.5 bg-orange-600 text-white rounded-full">                      બુકિંગ
+                    <span className="text-xs font-medium px-2 py-0.5 bg-orange-600 text-white rounded-full">                      Booking
                     </span>
                   </div>
                 ))
@@ -1726,11 +1721,11 @@ return (
   {/* LEFT BOX - Check-In History (Green) */}
   <div className="p-6 bg-white rounded-2xl shadow-2xl border-4 border-green-400">
   <h3 className="text-2xl font-bold text-green-700 mb-4 pb-2 border-b-4 border-green-400">
-  ✅ ચેક-ઇન ઇતિહાસ - {UTARA_LABEL} ({checkInHistory.filter(h => h.utara === selectedUtara).length})
+  ✅ Check-In History - {UTARA_LABEL} ({checkInHistory.filter(h => h.utara === selectedUtara).length})
 </h3>
 <div className="space-y-3 max-h-96 overflow-y-auto pr-2">
 {checkInHistory.filter(h => h.utara === selectedUtara).length === 0 ? (
-  <p className="text-gray-500 italic text-center py-8">આ ઉતારામાં હજુ સુધી કોઈ ચેક-ઇન રેકોર્ડ નથી.</p>
+  <p className="text-gray-500 italic text-center py-8">No check-in records for this location yet.</p>
 ) : (
   checkInHistory.filter(h => h.utara === selectedUtara).map(h => (
     <div
@@ -1738,7 +1733,7 @@ return (
       className="bg-green-50 p-3 rounded-lg border-l-4 border-green-500 shadow-sm hover:bg-green-100 transition"
     >
       <p className="font-bold text-gray-900 mb-1">{h.name}</p>
-      <p className="text-sm text-gray-600">રૂમ {h.roomNumber} • {h.members} વ્યક્તિ</p>
+      <p className="text-sm text-gray-600">Room {h.roomNumber} • {h.members} Person</p>
       {h.phone && h.phone !== 'N/A' && <p className="text-xs text-gray-600">📞 {h.phone}</p>}
       {h.village && h.village !== 'N/A' && <p className="text-xs text-gray-600">📍 {h.village}</p>}
       <p className="text-xs text-gray-500 mt-1">
@@ -1753,11 +1748,11 @@ return (
   {/* RIGHT BOX - Check-Out History (Red) */}
   <div className="p-6 bg-white rounded-2xl shadow-2xl border-4 border-red-400">
     <h3 className="text-2xl font-bold text-red-700 mb-4 pb-2 border-b-4 border-red-400">
-      ❌ ચેક-આઉટ ઇતિહાસ ({historyLog.length})
+      ❌ Check-Out History ({historyLog.length})
     </h3>
     <div className="space-y-3 max-h-96 overflow-y-auto pr-2">
       {historyLog.length === 0 ? (
-        <p className="text-gray-500 italic text-center py-8">હજુ સુધી કોઈ ચેક-આઉટ રેકોર્ડ નથી.</p>
+        <p className="text-gray-500 italic text-center py-8">No check-out records yet.</p>
       ) : (
         historyLog.map(h => (
           <div
@@ -1765,7 +1760,7 @@ return (
             className="bg-red-50 p-3 rounded-lg border-l-4 border-red-500 shadow-sm hover:bg-red-100 transition"
           >
             <p className="font-bold text-gray-900 mb-1">{h.name}</p>
-            <p className="text-sm text-gray-600">રૂમ {h.roomNumber} • {h.members} વ્યક્તિ • {h.duration}</p>
+            <p className="text-sm text-gray-600">Room {h.roomNumber} • {h.members} Person • {h.duration}</p>
             <p className="text-xs text-gray-500 mt-1">
               {new Date(h.checkOutTime).toLocaleString('gu-IN')}
             </p>
@@ -1803,7 +1798,7 @@ return (
       {modalState.type === 'error' && modalState.data && (
         <CustomModal
           isOpen={true}
-          title="ભૂલ (Error)"
+          title="Error (Error)"
           message={modalState.data}
           onCancel={closeModal}
         />

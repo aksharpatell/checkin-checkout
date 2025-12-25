@@ -1,18 +1,15 @@
-import { db } from "../firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from '../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
-/**
- * Add a new guest to Firestore
- * નવો યાત્રી ઉમેરો
- */
-export async function addGuest(name) {
-  if (!name || !name.trim()) {
-    throw new Error("Invalid guest name");
+export async function addGuest(guestName) {
+  try {
+    const docRef = await addDoc(collection(db, 'guests'), {
+      name: guestName,
+      createdAt: serverTimestamp()
+    });
+    return docRef.id;
+  } catch (error) {
+    console.error("Error adding guest:", error);
+    throw error;
   }
-
-  return await addDoc(collection(db, "guests"), {
-    name: name.trim(),
-    active: true,
-    createdAt: serverTimestamp(),
-  });
 }
